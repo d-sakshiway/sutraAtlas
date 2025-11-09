@@ -18,6 +18,9 @@
           <ul class="navbar-nav ms-auto" id="nav-links">
             <!-- populated by JS -->
           </ul>
+          <button class="btn btn-outline-secondary btn-sm ms-2" id="theme-toggle" title="Toggle Dark Mode">
+            <i class="fas fa-moon" id="theme-icon"></i>
+          </button>
         </div>
       </div>
     </nav>
@@ -121,6 +124,29 @@
             <li class="nav-item"><a class="nav-link" href="/register"><i class="fas fa-user-plus"></i> Register</a></li>`;
         }
       }
+      
+      // Dark mode toggle functionality
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      
+      if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-bs-theme', 'dark');
+        themeIcon.className = 'fas fa-sun';
+      }
+      
+      themeToggle.addEventListener('click', () => {
+        const theme = document.documentElement.getAttribute('data-bs-theme');
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-bs-theme', 'light');
+          themeIcon.className = 'fas fa-moon';
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-bs-theme', 'dark');
+          themeIcon.className = 'fas fa-sun';
+          localStorage.setItem('theme', 'dark');
+        }
+      });
       
       // Initialize navigation and then ensure dropdowns work
       async function initializeNav() {

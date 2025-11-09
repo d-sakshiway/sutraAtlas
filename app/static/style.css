@@ -1,7 +1,26 @@
+
+
+/* CSS Variables for Dark Mode Support */
+:root {
+  --bs-body-bg: #f8f9fa;
+  --bs-body-color: #212529;
+  --bs-border-color: #dee2e6;
+  --custom-card-bg: #ffffff;
+  --custom-muted: #6c757d;
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: #212529;
+  --bs-body-color: #adb5bd;
+  --bs-border-color: #495057;
+  --custom-card-bg: #343a40;
+  --custom-muted: #adb5bd;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f8f9fa;
-  color: #212529;
+  background: var(--bs-body-bg) !important;
+  color: var(--bs-body-color) !important;
 }
 
 /* Navbar fixes */
@@ -44,6 +63,37 @@ body {
   transform: translate3d(0px, 0px, 0px) !important;
 }
 
+/* Dark Mode Compatibility */
+.card {
+  background-color: var(--custom-card-bg) !important;
+  border-color: var(--bs-border-color) !important;
+}
+
+.text-muted {
+  color: var(--custom-muted) !important;
+}
+
+.bg-light {
+  background-color: var(--bs-gray-100) !important;
+}
+
+[data-bs-theme="dark"] .bg-light {
+  background-color: var(--bs-gray-800) !important;
+  color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .navbar-light {
+  background-color: var(--bs-dark) !important;
+}
+
+[data-bs-theme="dark"] .table-hover tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.075) !important;
+}
+
+[data-bs-theme="dark"] .accordion-button:not(.collapsed) {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 /* Ensure dropdown-menu-end works properly */
 .navbar-nav .dropdown-menu-end {
   --bs-position: end;
@@ -74,7 +124,7 @@ main {
 }
 
 .muted {
-  color: #6c757d;
+  color: var(--custom-muted) !important;
   font-size: 0.875rem;
 }
 
