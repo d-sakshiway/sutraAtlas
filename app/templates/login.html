@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+{% block title %}Login{% endblock %}
+{% block body %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white text-center">
+        <h3 class="mb-0"><i class="fas fa-sign-in-alt"></i> Login</h3>
+      </div>
+      <div class="card-body">
+        <form id="login-form" novalidate>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email or Username</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email or username" required />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              <input type="password" class="form-control" id="password" placeholder="Enter your password" required />
+            </div>
+          </div>
+          <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+          </div>
+        </form>
+        <div class="text-center">
+          <p class="mb-0">Don't have an account? 
+            <a href="/register" class="text-decoration-none">
+              <i class="fas fa-user-plus"></i> Register here
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="msg"></div>
+<script>
+document.getElementById('login-form').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const form = document.getElementById('login-form');
+  // perform custom validation so we can always run our submit handler
+  if(!form.checkValidity()){
+    // show browser validation UI
+    form.reportValidity();
+    return;
+  }
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const res = await fetch('/api/auth/login', {method:'POST', credentials:'include', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email,password})});
+  let j = {};
+  try{ j = await res.json(); }catch(e){}
+  if(res.ok){
+    location.href = '/profile';
+  } else {
+    // use showAlert if available, else fallback to inline message
+    if(window.showAlert) window.showAlert(j.error || 'login failed','danger');
+    else document.getElementById('msg').innerText = j.error || 'login failed';
+  }
+});
+</script>
+{% endblock %}

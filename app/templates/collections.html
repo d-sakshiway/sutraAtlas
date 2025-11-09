@@ -1,0 +1,164 @@
+{% extends 'layout.html' %}
+{% block title %}Collections{% endblock %}
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1><i class="fas fa-book-open"></i> Your Collections</h1>
+    <p class="text-muted mb-0">Organize your resources into collections</p>
+  </div>
+  <div>
+    <button id="new" class="btn btn-success">
+      <i class="fas fa-plus"></i> Create New Collection
+    </button>
+  </div>
+</div>
+
+<!-- Search and Filter Section -->
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-search"></i></span>
+          <input type="text" class="form-control" id="search-input" placeholder="Search collections by name or description...">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <select class="form-select" id="sort-select">
+          <option value="created_at">Sort by Date (Newest)</option>
+          <option value="name">Sort by Name (A-Z)</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-outline-secondary" id="clear-filters">
+          <i class="fas fa-times"></i> Clear
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" id="collections-grid">
+  <!-- Collections will be populated here -->
+</div>
+
+<div id="no-collections" class="text-center text-muted py-5" style="display: none;">
+  <i class="fas fa-folder-open fa-4x mb-3"></i>
+  <h4>No collections yet</h4>
+  <p>Create your first collection to start organizing your resources!</p>
+  <button class="btn btn-success" onclick="location.href='/collections/new'">
+    <i class="fas fa-plus"></i> Create First Collection
+  </button>
+</div>
+<script>
+async function load(){
+  const searchQuery = document.getElementById('search-input').value;
+  const sortBy = document.getElementById('sort-select').value;
+  
+  const params = new URLSearchParams();
+  if(searchQuery) params.append('q', searchQuery);
+  if(sortBy) params.append('sort', sortBy);
+  
+  const url = '/api/collections' + (params.toString() ? '?' + params.toString() : '');
+  const res = await fetch(url, {credentials:'include'});
+  
+  if(res.ok){
+    const data = await res.json();
+    const grid = document.getElementById('collections-grid');
+    const noCollections = document.getElementById('no-collections');
+    
+    grid.innerHTML = '';
+    
+    if(data.collections.length === 0) {
+      grid.style.display = 'none';
+      noCollections.style.display = 'block';
+      const searchQuery = document.getElementById('search-input').value;
+      if(searchQuery) {
+        noCollections.innerHTML = `
+          <i class="fas fa-search fa-4x mb-3"></i>
+          <h4>No collections found</h4>
+          <p>Try adjusting your search terms or clear filters to see all collections.</p>
+        `;
+      }
+    } else {
+      grid.style.display = 'flex';
+      noCollections.style.display = 'none';
+      
+      data.collections.forEach(c => {
+        const createdDate = c.created_at ? new Date(c.created_at).toLocaleDateString() : 'Unknown';
+        const col = document.createElement('div');
+        col.className = 'col-md-6 col-lg-4 mb-4';
+        col.innerHTML = `
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">
+                <i class="fas fa-folder text-primary"></i> ${c.name}
+              </h5>
+              <p class="card-text text-muted">${c.description || 'No description'}</p>
+              <small class="text-muted">Created: ${createdDate}</small>
+            </div>
+            <div class="card-footer bg-transparent d-flex gap-2">
+              <a href="/collections/${c.id}" class="btn btn-primary btn-sm flex-grow-1">
+                <i class="fas fa-eye"></i> View
+              </a>
+              <button class="btn btn-outline-secondary btn-sm edit-collection" data-collection-id="${c.id}" data-collection-name="${c.name}" data-collection-description="${c.description || ''}">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-danger btn-sm delete-collection" data-collection-id="${c.id}" data-collection-name="${c.name}">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(col);
+      });
+      
+      // Add event listeners for edit and delete buttons
+      document.querySelectorAll('.delete-collection').forEach(button => {
+        button.addEventListener('click', async (e) => {
+          const collectionId = e.target.closest('button').dataset.collectionId;
+          const collectionName = e.target.closest('button').dataset.collectionName;
+          
+          if (confirm(`Are you sure you want to delete "${collectionName}" and all its resources? This action cannot be undone.`)) {
+            const res = await fetch(`/api/collections/${collectionId}`, {
+              method: 'DELETE',
+              credentials: 'include'
+            });
+            
+            if (res.ok) {
+              if(window.showAlert) window.showAlert('Collection deleted successfully!', 'success');
+              load(); // Reload the collections
+            } else {
+              if(window.showAlert) window.showAlert('Failed to delete collection', 'danger');
+            }
+          }
+        });
+      });
+      
+      document.querySelectorAll('.edit-collection').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const collectionId = e.target.closest('button').dataset.collectionId;
+          location.href = `/collections/${collectionId}/edit`;
+        });
+      });
+    }
+  } else location.href='/login'
+}
+// Search and filter event listeners
+document.getElementById('search-input').addEventListener('input', () => {
+  clearTimeout(window.searchTimeout);
+  window.searchTimeout = setTimeout(load, 300); // Debounce search
+});
+
+document.getElementById('sort-select').addEventListener('change', load);
+
+document.getElementById('clear-filters').addEventListener('click', () => {
+  document.getElementById('search-input').value = '';
+  document.getElementById('sort-select').value = 'created_at';
+  load();
+});
+
+document.getElementById('new').addEventListener('click', ()=> location.href='/collections/new')
+load();
+</script>
+{% endblock %}

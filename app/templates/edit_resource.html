@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+{% block title %}Edit Resource{% endblock %}
+{% block body %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow">
+      <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+        <h3 class="mb-0"><i class="fas fa-edit"></i> Edit Resource</h3>
+        <a href="javascript:history.back()" class="btn btn-outline-dark btn-sm">
+          <i class="fas fa-arrow-left"></i> Back to Collection
+        </a>
+      </div>
+      <div class="card-body">
+        <form id="form">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="title" placeholder="Enter resource title" required />
+            <div class="form-text">The title or name of the resource</div>
+          </div>
+          <div class="mb-3">
+            <label for="authors" class="form-label">Authors</label>
+            <input type="text" class="form-control" id="authors" placeholder="e.g. John Doe, Jane Smith" />
+            <div class="form-text">Separate multiple authors with commas</div>
+          </div>
+          <div class="mb-3">
+            <label for="url" class="form-label">URL</label>
+            <input type="url" class="form-control" id="url" placeholder="https://example.com/resource" />
+            <div class="form-text">Link to the resource (optional)</div>
+          </div>
+          <div class="mb-4">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status">
+              <option value="Not Started">Not Started</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Paused">Paused</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-warning btn-lg text-dark">
+              <i class="fas fa-save"></i> Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Load existing resource data
+async function loadResource() {
+  const id = window.location.pathname.split('/')[2];
+  const res = await fetch('/api/resources/' + id, {credentials: 'include'});
+  if (res.ok) {
+    const data = await res.json();
+    const resource = data.resource;
+    document.getElementById('title').value = resource.title;
+    document.getElementById('authors').value = resource.authors || '';
+    document.getElementById('url').value = resource.url || '';
+    document.getElementById('status').value = resource.status || 'Not Started';
+  } else {
+    if(window.showAlert) window.showAlert('Failed to load resource', 'danger');
+    setTimeout(() => history.back(), 1500);
+  }
+}
+
+document.getElementById('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const id = window.location.pathname.split('/')[2];
+  const title = document.getElementById('title').value;
+  const authors = document.getElementById('authors').value;
+  const url = document.getElementById('url').value;
+  const status = document.getElementById('status').value;
+  
+  const res = await fetch('/api/resources/' + id, {
+    method: 'PUT',
+    credentials: 'include',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({title, authors, url, status})
+  });
+  
+  if (res.ok) {
+    if(window.showAlert) window.showAlert('Resource updated successfully!', 'success');
+    setTimeout(() => history.back(), 1500);
+  } else {
+    if(window.showAlert) window.showAlert('Failed to update resource', 'danger');
+  }
+});
+
+loadResource();
+</script>
+{% endblock %}

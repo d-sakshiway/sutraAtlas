@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+{% block title %}FAQ{% endblock %}
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1><i class="fas fa-question-circle"></i> Frequently Asked Questions</h1>
+  <a href="/profile" class="btn btn-outline-secondary">
+    <i class="fas fa-arrow-left"></i> Back to Profile
+  </a>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+            <i class="fas fa-folder-plus me-2"></i> How do I create a collection?
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <p>To create a new collection:</p>
+            <ol>
+              <li>Go to the Collections page from your profile</li>
+              <li>Click the "Create New Collection" button</li>
+              <li>Enter a name and optional description</li>
+              <li>Click "Create Collection" to save</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+            <i class="fas fa-book-medical me-2"></i> How do I add resources to a collection?
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <p>To add resources:</p>
+            <ol>
+              <li>Open the collection you want to add to</li>
+              <li>Click the "Add Resource" button</li>
+              <li>Fill in the title (required) and other details</li>
+              <li>Set the status and add a URL if available</li>
+              <li>Click "Add Resource" to save</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+            <i class="fas fa-tasks me-2"></i> What do the different statuses mean?
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <ul>
+              <li><span class="badge bg-secondary">Not Started</span> - You haven't begun this resource yet</li>
+              <li><span class="badge bg-primary">In Progress</span> - You're currently working through this resource</li>
+              <li><span class="badge bg-warning">Paused</span> - You've temporarily stopped working on this</li>
+              <li><span class="badge bg-success">Completed</span> - You've finished this resource</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFour">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+            <i class="fas fa-user-cog me-2"></i> How do I update my profile?
+          </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <p>To update your profile:</p>
+            <ol>
+              <li>Go to your Profile page</li>
+              <li>Click "Edit Profile"</li>
+              <li>Update your username (email cannot be changed)</li>
+              <li>Click "Save Changes"</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-4">
+    <div class="card bg-light">
+      <div class="card-body text-center">
+        <i class="fas fa-info-circle fa-3x text-info mb-3"></i>
+        <h5>Need More Help?</h5>
+        <p class="text-muted">Can't find what you're looking for? Here are some quick actions:</p>
+        <div class="d-grid gap-2">
+          <a href="/profile" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-user"></i> Go to Profile
+          </a>
+          <a href="/collections" class="btn btn-outline-success btn-sm">
+            <i class="fas fa-book-open"></i> My Collections
+          </a>
+          <a href="/collections/new" class="btn btn-outline-info btn-sm">
+            <i class="fas fa-plus"></i> Create Collection
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

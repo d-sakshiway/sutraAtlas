@@ -1,0 +1,123 @@
+{% extends 'layout.html' %}
+{% block title %}Register{% endblock %}
+{% block body %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow">
+      <div class="card-header bg-success text-white text-center">
+        <h3 class="mb-0"><i class="fas fa-user-plus"></i> Create Account</h3>
+      </div>
+      <div class="card-body">
+        <form id="reg-form">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email address" required />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <input type="text" class="form-control" id="username" placeholder="Choose a username (optional)" />
+            </div>
+            <div class="form-text">Optional: Choose a display name</div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              <input type="password" class="form-control" id="password" placeholder="Create a secure password" required minlength="8" />
+            </div>
+            <div class="form-text">
+              <small>Password must contain:
+                <ul class="mb-0 small">
+                  <li>At least 8 characters</li>
+                  <li>One uppercase letter</li>
+                  <li>One lowercase letter</li>
+                  <li>One number</li>
+                </ul>
+              </small>
+            </div>
+            <div id="password-strength" class="mt-1"></div>
+          </div>
+          <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-success btn-lg">
+              <i class="fas fa-user-plus"></i> Create Account
+            </button>
+          </div>
+        </form>
+        <div class="text-center">
+          <p class="mb-0">Already have an account? 
+            <a href="/login" class="text-decoration-none">
+              <i class="fas fa-sign-in-alt"></i> Login here
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="msg"></div>
+<script>
+// Password strength validation
+document.getElementById('password').addEventListener('input', function() {
+  const password = this.value;
+  const strengthDiv = document.getElementById('password-strength');
+  
+  let strength = 0;
+  let feedback = [];
+  
+  if (password.length >= 8) strength++;
+  else feedback.push('At least 8 characters');
+  
+  if (/[A-Z]/.test(password)) strength++;
+  else feedback.push('One uppercase letter');
+  
+  if (/[a-z]/.test(password)) strength++;
+  else feedback.push('One lowercase letter');
+  
+  if (/\d/.test(password)) strength++;
+  else feedback.push('One number');
+  
+  const colors = ['danger', 'danger', 'warning', 'info', 'success'];
+  const texts = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+  
+  if (password.length > 0) {
+    strengthDiv.innerHTML = `
+      <div class="progress mb-1" style="height: 5px;">
+        <div class="progress-bar bg-${colors[strength]}" style="width: ${strength * 25}%"></div>
+      </div>
+      <small class="text-${colors[strength]}">${texts[strength]} ${feedback.length > 0 ? '- Missing: ' + feedback.join(', ') : ''}</small>
+    `;
+  } else {
+    strengthDiv.innerHTML = '';
+  }
+});
+
+document.getElementById('reg-form').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  
+  // Client-side validation
+  if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password)) {
+    if(window.showAlert) window.showAlert('Password does not meet requirements','danger');
+    else document.getElementById('msg').innerText = 'Password does not meet requirements';
+    return;
+  }
+  
+  const res = await fetch('/api/auth/register', {method:'POST', credentials:'include', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email,username,password})});
+  const j = await res.json();
+  if(res.ok){
+    if(window.showAlert) window.showAlert('Account created successfully! Please login.','success');
+    setTimeout(() => location.href = '/login', 1500);
+  } else {
+    if(window.showAlert) window.showAlert(j.error || 'registration failed','danger');
+    else document.getElementById('msg').innerText = j.error || 'registration failed';
+  }
+});
+</script>
+{% endblock %}

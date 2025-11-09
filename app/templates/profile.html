@@ -1,0 +1,84 @@
+{% extends 'layout.html' %}
+{% block title %}Profile{% endblock %}
+{% block body %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0"><i class="fas fa-user"></i> My Profile</h3>
+        </div>
+        <div class="card-body">
+          <div id="profile-content">
+            <div class="row mb-4">
+              <div class="col-sm-3"><strong>Email:</strong></div>
+              <div class="col-sm-9">
+                <span id="email" class="text-muted">Loading...</span>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-sm-3"><strong>Username:</strong></div>
+              <div class="col-sm-9">
+                <span id="username" class="text-muted">Loading...</span>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-sm-3"><strong>Role:</strong></div>
+              <div class="col-sm-9">
+                <span id="role" class="badge bg-secondary">Loading...</span>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-sm-3"><strong>Member Since:</strong></div>
+              <div class="col-sm-9">
+                <span id="created-at" class="text-muted">Loading...</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <button id="edit" class="btn btn-outline-primary">
+              <i class="fas fa-edit"></i> Edit Name
+            </button>
+            <button id="change-password" class="btn btn-outline-warning">
+              <i class="fas fa-key"></i> Change Password
+            </button>
+            <button id="collections" class="btn btn-outline-info">
+              <i class="fas fa-folder"></i> My Collections
+            </button>
+            <button id="faq" class="btn btn-outline-secondary">
+              <i class="fas fa-question-circle"></i> FAQ
+            </button>
+            <button id="logout" class="btn btn-outline-danger">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+async function load(){
+  const res = await fetch('/api/auth/me', {credentials:'include'});
+  if(res.ok){
+    const data = await res.json();
+    document.getElementById('email').innerText = data.email;
+    document.getElementById('username').innerText = data.username || 'Not set';
+    document.getElementById('role').innerText = data.role || 'user';
+    document.getElementById('created-at').innerText = data.created_at ? new Date(data.created_at).toLocaleDateString() : 'Unknown';
+  } else {
+    location.href = '/login'
+  }
+}
+document.getElementById('edit').addEventListener('click', ()=> location.href='/profile/edit')
+document.getElementById('change-password').addEventListener('click', ()=> location.href='/profile/change-password')
+document.getElementById('collections').addEventListener('click', ()=> location.href='/collections')
+document.getElementById('faq').addEventListener('click', ()=> location.href='/faq')
+document.getElementById('logout').addEventListener('click', async ()=>{
+  await fetch('/api/auth/logout', {method:'POST', credentials:'include'});
+  location.href = '/login'
+});
+load();
+</script>
+{% endblock %}
