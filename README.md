@@ -6,6 +6,12 @@
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-red?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
+## 🚀 Live Demo
+
+**Try Sutra-Atlas now:** [https://sutraatlas-production.up.railway.app](https://sutraatlas-production.up.railway.app)
+
+*Experience the full functionality of our Digital Learning Resource Management System online!*
+
 ## 🌟 Overview
 
 **Sutra-Atlas** is a comprehensive Digital Learning Resource Management System designed to help users organize, manage, and track their educational resources effectively. Built with Flask and modern web technologies, it provides an intuitive platform for managing learning materials with advanced search capabilities and progress tracking.
