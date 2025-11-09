@@ -1,8 +1,11 @@
 {% extends 'layout.html' %}
-{% block title %}FAQ{% endblock %}
+{% block title %}FAQ - User Guide{% endblock %}
 {% block body %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1><i class="fas fa-question-circle"></i> Frequently Asked Questions</h1>
+  <div>
+    <h1 class="mb-1"><i class="fas fa-question-circle text-primary"></i> User Guide & FAQ</h1>
+    <p class="text-muted mb-0">Advanced tips and troubleshooting for managing your learning resources</p>
+  </div>
   <a href="/profile" class="btn btn-outline-secondary">
     <i class="fas fa-arrow-left"></i> Back to Profile
   </a>
@@ -10,79 +13,273 @@
 
 <div class="row">
   <div class="col-lg-8">
+    <!-- Quick Actions Bar -->
+    <div class="card bg-light mb-4">
+      <div class="card-body">
+        <h5 class="card-title"><i class="fas fa-rocket"></i> Quick Actions</h5>
+        <div class="row g-2">
+          <div class="col-md-3">
+            <a href="/collections/new" class="btn btn-primary btn-sm w-100">
+              <i class="fas fa-plus"></i> New Collection
+            </a>
+          </div>
+          <div class="col-md-3">
+            <a href="/collections" class="btn btn-success btn-sm w-100">
+              <i class="fas fa-search"></i> Browse Collections
+            </a>
+          </div>
+          <div class="col-md-3">
+            <a href="/profile/edit" class="btn btn-info btn-sm w-100">
+              <i class="fas fa-user-edit"></i> Edit Profile
+            </a>
+          </div>
+          <div class="col-md-3">
+            <a href="/profile/change-password" class="btn btn-warning btn-sm w-100">
+              <i class="fas fa-key"></i> Change Password
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="accordion" id="faqAccordion">
+      <!-- Collections Management -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-            <i class="fas fa-folder-plus me-2"></i> How do I create a collection?
+        <h2 class="accordion-header" id="collectionsHeader">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collectionsSection">
+            <i class="fas fa-folder-open me-2 text-primary"></i> <strong>Collections Management</strong>
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+        <div id="collectionsSection" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
-            <p>To create a new collection:</p>
-            <ol>
-              <li>Go to the Collections page from your profile</li>
-              <li>Click the "Create New Collection" button</li>
-              <li>Enter a name and optional description</li>
-              <li>Click "Create Collection" to save</li>
-            </ol>
+            <div class="row">
+              <div class="col-md-6">
+                <h6><i class="fas fa-folder-plus"></i> Creating Collections</h6>
+                <ul class="small">
+                  <li>Use descriptive names (e.g., "Machine Learning 2025", "Web Development Resources")</li>
+                  <li>Add detailed descriptions to remember the purpose</li>
+                  <li>Organize by subject, project, or learning path</li>
+                  <li>Consider creating separate collections for different skill levels</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6><i class="fas fa-edit"></i> Managing Collections</h6>
+                <ul class="small">
+                  <li>Edit collection names and descriptions anytime</li>
+                  <li>Delete empty collections to keep things organized</li>
+                  <li>Use the search feature to find specific collections quickly</li>
+                  <li>Sort collections by name or creation date</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       
+      <!-- Resources Management -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
-            <i class="fas fa-book-medical me-2"></i> How do I add resources to a collection?
+        <h2 class="accordion-header" id="resourcesHeader">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#resourcesSection">
+            <i class="fas fa-book me-2 text-success"></i> <strong>Resources Management</strong>
           </button>
         </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div id="resourcesSection" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
-            <p>To add resources:</p>
-            <ol>
-              <li>Open the collection you want to add to</li>
-              <li>Click the "Add Resource" button</li>
-              <li>Fill in the title (required) and other details</li>
-              <li>Set the status and add a URL if available</li>
-              <li>Click "Add Resource" to save</li>
-            </ol>
+            <div class="row">
+              <div class="col-md-6">
+                <h6><i class="fas fa-plus-circle"></i> Adding Resources</h6>
+                <ul class="small">
+                  <li><strong>Title:</strong> Use clear, searchable titles</li>
+                  <li><strong>Authors:</strong> Include author names for books/articles</li>
+                  <li><strong>URL:</strong> Add direct links to online resources</li>
+                  <li><strong>Status:</strong> Set initial status (usually "Not Started")</li>
+                </ul>
+                <div class="alert alert-info alert-sm">
+                  <small><i class="fas fa-lightbulb"></i> <strong>Pro Tip:</strong> URLs are automatically formatted - you can enter "example.com" and it becomes "https://example.com"</small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h6><i class="fas fa-edit"></i> Managing Resources</h6>
+                <ul class="small">
+                  <li>Update status as you progress through materials</li>
+                  <li>Edit titles and authors to improve searchability</li>
+                  <li>Add URLs later if you find online versions</li>
+                  <li>Delete resources that are no longer relevant</li>
+                </ul>
+                <div class="alert alert-warning alert-sm">
+                  <small><i class="fas fa-exclamation-triangle"></i> <strong>Note:</strong> Deleting resources is permanent - consider changing status to "Not Relevant" instead</small>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       
+      <!-- Status System -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
-            <i class="fas fa-tasks me-2"></i> What do the different statuses mean?
+        <h2 class="accordion-header" id="statusHeader">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#statusSection">
+            <i class="fas fa-tasks me-2 text-warning"></i> <strong>Status Tracking System</strong>
           </button>
         </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div id="statusSection" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
-            <ul>
-              <li><span class="badge bg-secondary">Not Started</span> - You haven't begun this resource yet</li>
-              <li><span class="badge bg-primary">In Progress</span> - You're currently working through this resource</li>
-              <li><span class="badge bg-warning">Paused</span> - You've temporarily stopped working on this</li>
-              <li><span class="badge bg-success">Completed</span> - You've finished this resource</li>
-            </ul>
+            <div class="row">
+              <div class="col-md-6">
+                <h6><i class="fas fa-flag"></i> Status Meanings</h6>
+                <div class="d-flex align-items-center mb-2">
+                  <span class="badge bg-secondary me-2">Not Started</span>
+                  <small>Resources you plan to use but haven't begun</small>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                  <span class="badge bg-primary me-2">In Progress</span>
+                  <small>Currently reading/studying this resource</small>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                  <span class="badge bg-warning me-2">Paused</span>
+                  <small>Temporarily stopped, plan to resume later</small>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                  <span class="badge bg-success me-2">Completed</span>
+                  <small>Finished reading/studying this resource</small>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                  <span class="badge bg-info me-2">Reference</span>
+                  <small>Keep for future reference or lookup</small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h6><i class="fas fa-chart-line"></i> Best Practices</h6>
+                <ul class="small">
+                  <li><strong>Update regularly:</strong> Change status as you progress</li>
+                  <li><strong>Use "Paused" wisely:</strong> For resources you intend to resume</li>
+                  <li><strong>"Reference" status:</strong> For documentation, manuals, lookup resources</li>
+                  <li><strong>Review "Completed":</strong> Periodically review finished resources</li>
+                </ul>
+                <div class="alert alert-success alert-sm mt-3">
+                  <small><i class="fas fa-trophy"></i> <strong>Achievement Tip:</strong> Use search filters to see all "Completed" resources for motivation!</small>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       
+      <!-- Search & Organization -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFour">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
-            <i class="fas fa-user-cog me-2"></i> How do I update my profile?
+        <h2 class="accordion-header" id="searchHeader">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#searchSection">
+            <i class="fas fa-search me-2 text-info"></i> <strong>Search & Organization</strong>
           </button>
         </h2>
-        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div id="searchSection" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
-            <p>To update your profile:</p>
-            <ol>
-              <li>Go to your Profile page</li>
-              <li>Click "Edit Profile"</li>
-              <li>Update your username (email cannot be changed)</li>
-              <li>Click "Save Changes"</li>
-            </ol>
+            <div class="row">
+              <div class="col-md-6">
+                <h6><i class="fas fa-filter"></i> Search Features</h6>
+                <ul class="small">
+                  <li><strong>Collection Search:</strong> Find collections by name or description</li>
+                  <li><strong>Resource Search:</strong> Search titles, authors, or content</li>
+                  <li><strong>Status Filtering:</strong> View resources by completion status</li>
+                  <li><strong>Quick Filters:</strong> Use predefined filters for common searches</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6><i class="fas fa-sort"></i> Organization Tips</h6>
+                <ul class="small">
+                  <li>Create collections by topic, project, or difficulty level</li>
+                  <li>Use consistent naming conventions for easier searching</li>
+                  <li>Regularly review and clean up outdated resources</li>
+                  <li>Group related resources in the same collection</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account & Security -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="accountHeader">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accountSection">
+            <i class="fas fa-user-shield me-2 text-secondary"></i> <strong>Account & Security</strong>
+          </button>
+        </h2>
+        <div id="accountSection" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h6><i class="fas fa-user-edit"></i> Profile Management</h6>
+                <ul class="small">
+                  <li>Update username anytime (3-50 characters)</li>
+                  <li>Username can contain letters, numbers, hyphens, underscores</li>
+                  <li>Email address cannot be changed for security reasons</li>
+                  <li>Profile changes take effect immediately</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6><i class="fas fa-lock"></i> Password Security</h6>
+                <ul class="small">
+                  <li>Change password regularly for security</li>
+                  <li>Must be 8+ characters with uppercase, lowercase, and numbers</li>
+                  <li>New password must be different from current one</li>
+                  <li>You'll be logged out after password changes</li>
+                </ul>
+              </div>
+            </div>
+            <div class="alert alert-info mt-3">
+              <small><i class="fas fa-shield-alt"></i> <strong>Security:</strong> Your data is private and secure. Only you can access your collections and resources.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="troubleshootingHeader">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#troubleshootingSection">
+            <i class="fas fa-tools me-2 text-danger"></i> <strong>Troubleshooting & Tips</strong>
+          </button>
+        </h2>
+        <div id="troubleshootingSection" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h6><i class="fas fa-bug"></i> Common Issues</h6>
+                <div class="small">
+                  <p><strong>Can't save changes?</strong></p>
+                  <ul class="small">
+                    <li>Check internet connection</li>
+                    <li>Ensure all required fields are filled</li>
+                    <li>Try refreshing the page and logging in again</li>
+                  </ul>
+                  <p><strong>Search not working?</strong></p>
+                  <ul class="small">
+                    <li>Check spelling and try different keywords</li>
+                    <li>Use partial words or shorter terms</li>
+                    <li>Clear filters and try again</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h6><i class="fas fa-lightbulb"></i> Pro Tips</h6>
+                <div class="small">
+                  <p><strong>Productivity Hacks:</strong></p>
+                  <ul class="small">
+                    <li>Use keyboard shortcuts (Ctrl+Click to open links in new tabs)</li>
+                    <li>Bookmark frequently used collections</li>
+                    <li>Set up collections for different learning goals</li>
+                    <li>Review your "In Progress" resources weekly</li>
+                  </ul>
+                  <p><strong>Organization Strategy:</strong></p>
+                  <ul class="small">
+                    <li>Create a "Quick Reference" collection for documentation</li>
+                    <li>Use descriptive titles that you'll remember later</li>
+                    <li>Tag resources with year or difficulty level in titles</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -90,26 +287,55 @@
   </div>
   
   <div class="col-lg-4">
+    
+
+
+    <!-- Tips Card -->
     <div class="card bg-light">
-      <div class="card-body text-center">
-        <i class="fas fa-info-circle fa-3x text-info mb-3"></i>
-        <h5>Need More Help?</h5>
-        <p class="text-muted">Can't find what you're looking for? Here are some quick actions:</p>
-        <div class="d-grid gap-2">
-          <a href="/profile" class="btn btn-outline-primary btn-sm">
-            <i class="fas fa-user"></i> Go to Profile
-          </a>
-          <a href="/collections" class="btn btn-outline-success btn-sm">
-            <i class="fas fa-book-open"></i> My Collections
-          </a>
-          <a href="/collections/new" class="btn btn-outline-info btn-sm">
-            <i class="fas fa-plus"></i> Create Collection
-          </a>
-        </div>
+      <div class="card-header">
+        <h6 class="mb-0"><i class="fas fa-lightbulb text-warning"></i> Daily Tip</h6>
+      </div>
+      <div class="card-body">
+        <p class="card-text small">
+          <strong>Stay Organized:</strong> Review your "In Progress" resources weekly and update their status. This helps you track your learning momentum and identify resources that might need more attention.
+        </p>
+        <hr class="my-2">
+        <p class="card-text small text-muted mb-0">
+          <i class="fas fa-info-circle"></i> Use the search feature to quickly find resources by title, author, or status.
+        </p>
       </div>
     </div>
+
+    
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Additional CSS for enhanced styling -->
+<style>
+.bg-gradient-primary {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+}
+
+.alert-sm {
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.badge {
+  font-size: 0.75em;
+}
+
+kbd {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.25rem;
+  font-size: 0.75em;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+</style>
+
 {% endblock %}

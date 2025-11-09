@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block title %}Server Error{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+      <div class="card border-danger">
+        <div class="card-body">
+          <i class="fas fa-server fa-5x text-danger mb-4"></i>
+          <h1 class="card-title">500 - Server Error</h1>
+          <p class="card-text">Something went wrong on our end. We're working to fix it!</p>
+          <p class="text-muted">What you can do:</p>
+          <ul class="list-unstyled text-muted">
+            <li>• Try refreshing the page</li>
+            <li>• Go back and try again</li>
+            <li>• Contact support if the problem persists</li>
+          </ul>
+          <div class="mt-4">
+            <button onclick="location.reload()" class="btn btn-outline-primary me-2">
+              <i class="fas fa-refresh"></i> Retry
+            </button>
+            <a href="/collections" class="btn btn-primary">
+              <i class="fas fa-home"></i> Go Home
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -30,9 +30,14 @@
           </div>
         </form>
         <div class="text-center">
-          <p class="mb-0">Don't have an account? 
+          <p class="mb-2">Don't have an account? 
             <a href="/register" class="text-decoration-none">
               <i class="fas fa-user-plus"></i> Register here
+            </a>
+          </p>
+          <p class="mb-0">
+            <a href="/help" class="text-muted text-decoration-none small">
+              <i class="fas fa-question-circle"></i> Need help? Learn more about Sutra-Atlas
             </a>
           </p>
         </div>
@@ -57,7 +62,14 @@ document.getElementById('login-form').addEventListener('submit', async (e)=>{
   let j = {};
   try{ j = await res.json(); }catch(e){}
   if(res.ok){
-    location.href = '/profile';
+    // Check if there's an intended destination stored
+    const intendedDestination = sessionStorage.getItem('intendedDestination');
+    if (intendedDestination) {
+      sessionStorage.removeItem('intendedDestination');
+      location.href = intendedDestination;
+    } else {
+      location.href = '/collections';
+    }
   } else {
     // use showAlert if available, else fallback to inline message
     if(window.showAlert) window.showAlert(j.error || 'login failed','danger');

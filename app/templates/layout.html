@@ -4,8 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}Sutra-Atlas{% endblock %}</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
@@ -24,9 +22,32 @@
       </div>
     </nav>
 
-    <div class="container fade-in-up">
+    <div class="container">
+      <!-- Flash messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+              {% if category == 'error' %}
+                <i class="fas fa-exclamation-triangle"></i>
+              {% elif category == 'success' %}
+                <i class="fas fa-check-circle"></i>
+              {% elif category == 'info' %}
+                <i class="fas fa-info-circle"></i>
+              {% elif category == 'warning' %}
+                <i class="fas fa-exclamation-circle"></i>
+              {% endif %}
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
       <!-- Alert container -->
-      <div id="alerts"></div>
+      <div id="alert-container">
+        <div id="alerts"></div>
+      </div>
 
       <main>
         {% block body %}{% endblock %}
@@ -42,6 +63,8 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Validation utilities -->
+    <script src="/static/js/validation.js"></script>
     <script>
       // show bootstrap alert
       window.showAlert = function(message, type='danger', timeout=5000){
@@ -69,10 +92,10 @@
               <li class="nav-item"><a class="nav-link" href="/collections"><i class="fas fa-folder"></i> Collections</a></li>
               <li class="nav-item"><a class="nav-link" href="/faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-user-circle"></i> ${user.username || user.email}
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-end">
                   <li><a class="dropdown-item" href="/profile/edit"><i class="fas fa-edit"></i> Edit Profile</a></li>
                   <li><a class="dropdown-item" href="/profile/change-password"><i class="fas fa-key"></i> Change Password</a></li>
                   <li><hr class="dropdown-divider"></li>
@@ -87,16 +110,40 @@
             });
           } else {
             ul.innerHTML = `
+              <li class="nav-item"><a class="nav-link" href="/help"><i class="fas fa-question-circle"></i> Help</a></li>
               <li class="nav-item"><a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
               <li class="nav-item"><a class="nav-link" href="/register"><i class="fas fa-user-plus"></i> Register</a></li>`;
           }
         }catch(e){
           ul.innerHTML = `
+            <li class="nav-item"><a class="nav-link" href="/help"><i class="fas fa-question-circle"></i> Help</a></li>
             <li class="nav-item"><a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
             <li class="nav-item"><a class="nav-link" href="/register"><i class="fas fa-user-plus"></i> Register</a></li>`;
         }
       }
-      updateNav();
+      
+      // Initialize navigation and then ensure dropdowns work
+      async function initializeNav() {
+        await updateNav();
+        
+        // Initialize Bootstrap dropdowns after navigation is updated
+        setTimeout(() => {
+          const dropdownElements = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+          dropdownElements.forEach(element => {
+            if (window.bootstrap && window.bootstrap.Dropdown) {
+              // Dispose any existing instance first
+              const existingInstance = bootstrap.Dropdown.getInstance(element);
+              if (existingInstance) {
+                existingInstance.dispose();
+              }
+              // Create new instance
+              new bootstrap.Dropdown(element);
+            }
+          });
+        }, 200);
+      }
+      
+      initializeNav();
     </script>
   </body>
   </html>

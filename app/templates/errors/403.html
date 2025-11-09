@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block title %}Access Forbidden{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+      <div class="card border-danger">
+        <div class="card-body">
+          <i class="fas fa-ban fa-5x text-danger mb-4"></i>
+          <h1 class="card-title">403 - Access Forbidden</h1>
+          <p class="card-text">You don't have permission to access this resource.</p>
+          <p class="text-muted">This might be because:</p>
+          <ul class="list-unstyled text-muted">
+            <li>• You're trying to access someone else's collection or resource</li>
+            <li>• You don't have the required permissions</li>
+            <li>• You need to log in again</li>
+          </ul>
+          <div class="mt-4">
+            <a href="/collections" class="btn btn-primary me-2">
+              <i class="fas fa-folder"></i> My Collections
+            </a>
+            <a href="/profile" class="btn btn-outline-primary">
+              <i class="fas fa-user"></i> My Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

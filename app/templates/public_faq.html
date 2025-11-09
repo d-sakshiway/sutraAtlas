@@ -1,0 +1,381 @@
+{% extends 'layout.html' %}
+{% block title %}Help & FAQ - Sutra-Atlas{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center mb-5 mt-4">
+        <h1 class="display-4 text-primary mb-3">
+          <i class="fas fa-question-circle"></i> Help & FAQ
+        </h1>
+        <p class="lead text-muted">Everything you need to know about Sutra-Atlas</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <!-- Getting Started Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h3 class="card-title mb-0">
+            <i class="fas fa-rocket"></i> Getting Started
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="accordion" id="gettingStartedAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#whatIs">
+                  <strong>What is Sutra-Atlas?</strong>
+                </button>
+              </h2>
+              <div id="whatIs" class="accordion-collapse collapse show" data-bs-parent="#gettingStartedAccordion">
+                <div class="accordion-body">
+                  <p>Sutra-Atlas is a comprehensive Digital Learning Resource Management System (DL-RMS) designed to help you organize, manage, and track your educational resources effectively.</p>
+                  <p><strong>Key Features:</strong></p>
+                  <ul>
+                    <li><i class="fas fa-folder text-primary"></i> <strong>Collections:</strong> Organize resources by subject, project, or any category</li>
+                    <li><i class="fas fa-book text-success"></i> <strong>Resource Management:</strong> Store and track books, articles, videos, and more</li>
+                    <li><i class="fas fa-tags text-warning"></i> <strong>Status Tracking:</strong> Track your progress (To Read, Reading, Read, Reference)</li>
+                    <li><i class="fas fa-search text-info"></i> <strong>Search & Filter:</strong> Quickly find what you're looking for</li>
+                    <li><i class="fas fa-user-circle text-secondary"></i> <strong>Personal Dashboard:</strong> Your personalized learning workspace</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#howToStart">
+                  <strong>How do I get started?</strong>
+                </button>
+              </h2>
+              <div id="howToStart" class="accordion-collapse collapse" data-bs-parent="#gettingStartedAccordion">
+                <div class="accordion-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="card border-primary mb-3">
+                        <div class="card-header bg-primary text-white">
+                          <h5><i class="fas fa-user-plus"></i> New User</h5>
+                        </div>
+                        <div class="card-body">
+                          <ol>
+                            <li>Click <strong>"Register"</strong> in the navigation</li>
+                            <li>Create your account with email and secure password</li>
+                            <li>Log in to access your dashboard</li>
+                            <li>Create your first collection</li>
+                            <li>Start adding resources to your collections</li>
+                          </ol>
+                          <a href="/register" class="btn btn-primary btn-sm">
+                            <i class="fas fa-user-plus"></i> Register Now
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card border-success mb-3">
+                        <div class="card-header bg-success text-white">
+                          <h5><i class="fas fa-sign-in-alt"></i> Existing User</h5>
+                        </div>
+                        <div class="card-body">
+                          <ol>
+                            <li>Click <strong>"Login"</strong> in the navigation</li>
+                            <li>Enter your credentials</li>
+                            <li>Access your collections and resources</li>
+                            <li>Continue managing your learning journey</li>
+                          </ol>
+                          <a href="/login" class="btn btn-success btn-sm">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#requirements">
+                  <strong>What do I need to use Sutra-Atlas?</strong>
+                </button>
+              </h2>
+              <div id="requirements" class="accordion-collapse collapse" data-bs-parent="#gettingStartedAccordion">
+                <div class="accordion-body">
+                  <div class="alert alert-info">
+                    <h5><i class="fas fa-info-circle"></i> System Requirements</h5>
+                    <ul class="mb-0">
+                      <li><strong>Browser:</strong> Any modern web browser (Chrome, Firefox, Safari, Edge)</li>
+                      <li><strong>Internet:</strong> Stable internet connection</li>
+                      <li><strong>Account:</strong> Valid email address for registration</li>
+                      <li><strong>JavaScript:</strong> Must be enabled in your browser</li>
+                    </ul>
+                  </div>
+                  <p><strong>No downloads or installations required!</strong> Sutra-Atlas is a web-based application that works directly in your browser.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-success text-white">
+          <h3 class="card-title mb-0">
+            <i class="fas fa-star"></i> Platform Features
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="feature-box p-3 border rounded">
+                <h5 class="text-primary"><i class="fas fa-folder-plus"></i> Collection Management</h5>
+                <p class="mb-0">Organize your resources into meaningful collections based on subjects, projects, or personal interests.</p>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="feature-box p-3 border rounded">
+                <h5 class="text-success"><i class="fas fa-book-open"></i> Resource Tracking</h5>
+                <p class="mb-0">Add books, articles, videos, and other learning materials with detailed metadata and status tracking.</p>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="feature-box p-3 border rounded">
+                <h5 class="text-warning"><i class="fas fa-tasks"></i> Progress Monitoring</h5>
+                <p class="mb-0">Track your learning progress with status indicators: To Read, Reading, Read, Reference.</p>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="feature-box p-3 border rounded">
+                <h5 class="text-info"><i class="fas fa-search-plus"></i> Advanced Search</h5>
+                <p class="mb-0">Quickly find resources using powerful search and filtering capabilities across all your collections.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account & Security Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-warning text-dark">
+          <h3 class="card-title mb-0">
+            <i class="fas fa-shield-alt"></i> Account & Security
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="accordion" id="securityAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accountSafety">
+                  <strong>Is my data safe and secure?</strong>
+                </button>
+              </h2>
+              <div id="accountSafety" class="accordion-collapse collapse" data-bs-parent="#securityAccordion">
+                <div class="accordion-body">
+                  <div class="alert alert-success">
+                    <h6><i class="fas fa-lock"></i> Your Security is Our Priority</h6>
+                    <ul class="mb-0">
+                      <li><strong>Password Security:</strong> All passwords are securely hashed and encrypted</li>
+                      <li><strong>Private Collections:</strong> Only you can access your collections and resources</li>
+                      <li><strong>Secure Sessions:</strong> Your login sessions are protected and automatically expire</li>
+                      <li><strong>Input Validation:</strong> All data is validated to prevent security vulnerabilities</li>
+                      <li><strong>Regular Backups:</strong> Your data is regularly backed up for protection</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#passwordRequirements">
+                  <strong>What are the password requirements?</strong>
+                </button>
+              </h2>
+              <div id="passwordRequirements" class="accordion-collapse collapse" data-bs-parent="#securityAccordion">
+                <div class="accordion-body">
+                  <div class="alert alert-info">
+                    <h6><i class="fas fa-key"></i> Strong Password Requirements</h6>
+                    <p>To keep your account secure, passwords must include:</p>
+                    <ul class="mb-0">
+                      <li>At least <strong>8 characters</strong> long</li>
+                      <li>At least one <strong>uppercase letter</strong> (A-Z)</li>
+                      <li>At least one <strong>lowercase letter</strong> (a-z)</li>
+                      <li>At least one <strong>number</strong> (0-9)</li>
+                    </ul>
+                  </div>
+                  <p><strong>Example of a strong password:</strong> <code>MySecure123</code></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Support Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <h3 class="card-title mb-0">
+            <i class="fas fa-life-ring"></i> Support & Help
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h5><i class="fas fa-question-circle text-primary"></i> Need More Help?</h5>
+              <p>If you have questions that aren't answered here, we're here to help!</p>
+              <ul>
+                <li><strong>Technical Issues:</strong> Check your browser settings and ensure JavaScript is enabled</li>
+                <li><strong>Account Problems:</strong> Make sure you're using the correct email and password</li>
+                <li><strong>Feature Questions:</strong> Once logged in, visit the detailed FAQ section</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h5><i class="fas fa-lightbulb text-warning"></i> Tips for Success</h5>
+              <ul>
+                <li><strong>Organize Early:</strong> Create collections before adding many resources</li>
+                <li><strong>Use Descriptive Titles:</strong> Make it easy to find resources later</li>
+                <li><strong>Update Status:</strong> Keep track of your reading progress</li>
+                <li><strong>Regular Reviews:</strong> Periodically review and organize your collections</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="card bg-primary text-white text-center mb-5">
+        <div class="card-body py-4">
+          <h3 class="mb-3"><i class="fas fa-rocket"></i> Ready to Get Started?</h3>
+          <p class="card-text mb-4">Join Sutra-Atlas today and take control of your learning resources!</p>
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="/register" class="btn btn-light btn-lg px-4">
+              <i class="fas fa-user-plus"></i> Create Account
+            </a>
+            <a href="/login" class="btn btn-outline-light btn-lg px-4">
+              <i class="fas fa-sign-in-alt"></i> Sign In
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Ensure proper spacing for dropdown menus */
+body {
+  padding-top: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Feature box styling */
+.feature-box {
+  transition: transform 0.2s ease-in-out;
+  height: 100%;
+  background: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.feature-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-color: #007bff;
+}
+
+/* Accordion styling */
+.accordion-button:not(.collapsed) {
+  background-color: rgba(13, 110, 253, 0.1);
+  border-color: rgba(13, 110, 253, 0.25);
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Card spacing and shadows */
+.card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Alert styling improvements */
+.alert {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+/* Button group spacing */
+.btn-group .btn {
+  margin: 0 0.25rem;
+}
+
+/* Spacing and layout fixes */
+.container {
+  margin-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+/* Button group improvements */
+.d-flex.gap-3 {
+  gap: 1rem !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2.5rem;
+  }
+  
+  .d-flex.gap-3 {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-lg {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+/* Navigation dropdown fix - simplified to avoid conflicts */
+.navbar-nav .dropdown-menu {
+  z-index: 1050;
+}
+
+/* Ensure main content doesn't interfere with navbar */
+main {
+  position: relative;
+  z-index: 1;
+  margin-top: 1rem;
+}
+</style>
+
+<script>
+// Ensure Bootstrap dropdowns work properly on this page
+document.addEventListener('DOMContentLoaded', function() {
+  // Force re-initialization of dropdowns
+  setTimeout(function() {
+    const dropdownElements = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+    dropdownElements.forEach(function(element) {
+      if (window.bootstrap && window.bootstrap.Dropdown) {
+        new bootstrap.Dropdown(element);
+      }
+    });
+  }, 100);
+});
+</script>
+{% endblock %}

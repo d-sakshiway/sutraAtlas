@@ -1,46 +1,65 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app import db
-from app.models import Resource, Collection
+from app.models import Resource, Collection, StatusEnum
+from app.utils import validate_id, validate_ownership, validate_json_input, get_validated_json, validate_enum_value
 
 resources_bp = Blueprint('resources', __name__, url_prefix='/api/resources')
 
 
-def _check_owner(resource):
-    # Ensure current_user owns the resource via collection
-    col = Collection.query.get(resource.collection_id)
-    return col and col.user_id == current_user.id
+
 
 
 @resources_bp.route('/<int:rid>', methods=['GET'])
 @login_required
 def get_resource(rid):
-    res = Resource.query.get_or_404(rid)
-    if not _check_owner(res):
-        return jsonify({'error': 'forbidden'}), 403
+    rid = validate_id(rid, "Resource ID")
+    res = validate_ownership(Resource, rid)
     return jsonify({'resource': res.to_dict()}), 200
 
 
 @resources_bp.route('/<int:rid>', methods=['PUT'])
 @login_required
+@validate_json_input(optional_fields=['title', 'authors', 'url', 'status'])
 def update_resource(rid):
-    res = Resource.query.get_or_404(rid)
-    if not _check_owner(res):
-        return jsonify({'error': 'forbidden'}), 403
-    data = request.get_json() or {}
+    rid = validate_id(rid, "Resource ID")
+    res = validate_ownership(Resource, rid)
+    data = get_validated_json()
+    
     if 'title' in data:
-        res.title = data.get('title')
+        title = data['title'].strip()
+        if not title:
+            return jsonify({'error': 'Title cannot be empty'}), 400
+        if len(title) > 300:
+            return jsonify({'error': 'Title too long (max 300 characters)'}), 400
+        res.title = title
+    
     if 'authors' in data:
-        res.authors = data.get('authors')
+        authors = data['authors'].strip()
+        if len(authors) > 500:
+            return jsonify({'error': 'Authors field too long (max 500 characters)'}), 400
+        res.authors = authors
+    
     if 'url' in data:
-        res.url = data.get('url')
+        url = data['url'].strip()
+        if len(url) > 1000:
+            return jsonify({'error': 'URL too long (max 1000 characters)'}), 400
+        
+        # Validate URL format if provided
+        if url:
+            import re
+            url_pattern = r'^https?://.+'
+            if not re.match(url_pattern, url, re.IGNORECASE):
+                # Try to fix common URL issues
+                if not url.startswith(('http://', 'https://')):
+                    url = 'https://' + url
+        res.url = url
+    
     if 'status' in data:
-        try:
-            from app.models import StatusEnum
-
-            res.status = StatusEnum(data.get('status'))
-        except Exception:
-            return jsonify({'error': 'invalid status'}), 400
+        status_val = validate_enum_value(data['status'], StatusEnum, 'status')
+        if status_val:
+            res.status = status_val
+    
     db.session.commit()
     return jsonify({'resource': res.to_dict()}), 200
 
@@ -48,9 +67,9 @@ def update_resource(rid):
 @resources_bp.route('/<int:rid>', methods=['DELETE'])
 @login_required
 def delete_resource(rid):
-    res = Resource.query.get_or_404(rid)
-    if not _check_owner(res):
-        return jsonify({'error': 'forbidden'}), 403
+    rid = validate_id(rid, "Resource ID")
+    res = validate_ownership(Resource, rid)
+    
     db.session.delete(res)
     db.session.commit()
     return jsonify({'message': 'deleted'}), 200
