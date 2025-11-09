@@ -126,47 +126,49 @@ User (1) ←→ (N) Collection (1) ←→ (N) Resource
 - **Collections**: Organizational containers for resources
 - **Resources**: Learning materials with metadata and progress tracking
 
-## � Screenshots
+## 📸 Screenshots
+
+> **Live Demo Available**: Experience all features at [https://sutraatlas-production.up.railway.app](https://sutraatlas-production.up.railway.app)
 
 ### 🔐 Authentication System
-**Login Page**
-![Login Page](screenshots/login.png)
+**Login Page**  
+![Login Page](assets/screenshots/login.png)  
 *Secure login interface with clean dark theme design and user-friendly form validation*
 
-**Registration Page** 
-![Registration Page](screenshots/register.png)
+**Registration Page**  
+![Registration Page](assets/screenshots/register.png)  
 *Account creation with comprehensive password requirements and clear validation feedback*
 
 ### 📊 Dashboard & Collections Management
-**Collections Overview**
-![Collections Dashboard](screenshots/collections-dashboard.png)
+**Collections Overview**  
+![Collections Dashboard](assets/screenshots/collections-dashboard.png)  
 *Main collections dashboard with search functionality and create new collection option*
 
-**Create New Collection**
-![Create Collection](screenshots/create-collection.png)
+**Create New Collection**  
+![Create Collection](assets/screenshots/create-collection.png)  
 *Simple and intuitive collection creation form with validation*
 
-**Search & Filter**
-![Collections Search](screenshots/collections-search.png)
+**Search & Filter**  
+![Collections Search](assets/screenshots/collections-search.png)  
 *Advanced search functionality with real-time filtering and clear no-results feedback*
 
 ### 📚 Resource Management
-**Add New Resource**
-![Add Resource](screenshots/add-resource.png)
+**Add New Resource**  
+![Add Resource](assets/screenshots/add-resource.png)  
 *Comprehensive resource addition form with status tracking and metadata fields*
 
-**Resource List View**
-![Resources List](screenshots/resources-list.png)
+**Resource List View**  
+![Resources List](assets/screenshots/resources-list.png)  
 *Resource management interface with status badges, search, filtering, and quick actions*
 
 ### 👤 User Profile & Settings
-**Profile Dashboard**
-![User Profile](screenshots/user-profile.png)
+**Profile Dashboard**  
+![User Profile](assets/screenshots/user-profile.png)  
 *User profile page with account information and quick action buttons*
 
 ### 📖 Help & Documentation
-**User Guide & FAQ**
-![FAQ Page](screenshots/faq.png)
+**User Guide & FAQ**  
+![FAQ Page](assets/screenshots/faq.png)  
 *Comprehensive user guide with accordion-style FAQ sections and daily tips*
 
 ## �🛡️ Security Features
